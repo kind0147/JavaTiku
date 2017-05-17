@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="tiku.dao.ExercisesDao">
+	
+	<select id="countAll" resultType="int">
+		select count(*) from exercises
+	</select>
+	
+	<select id="selectAll" resultType="tiku.domain.Exercises">
+		select * from exercises
+	</select>
+	
+	<insert id="insert" parameterType="tiku.domain.Exercises" useGeneratedKeys="true">
+		insert into exercises(e_desc, e_answer, e_diff, e_type, e_point) values(#{e_desc}, #{e_answer}, #{e_diff}, #{e_type}, #{e_point})
+	</insert>
+	
+	<update id="update" parameterType="tiku.domain.Exercises">
+		update users set e_desc=#{e_desc}, e_answer=#{e_answer}, e_diff=#{e_diff}, e_type=#{e_type}, e_point=#{e_point}, e_img=#{e_img}, e_tag=#{e_tag} where e_id=#{e_id}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from exercises where e_id=#{e_id}
+	</delete>
+	
+	<select id="findById" parameterType="int" resultType="tiku.domain.Exercises">
+		select * from exercises where e_id=#{e_id}
+	</select>
+	
+	<select id="findByDTP"  resultType="tiku.domain.Exercises">
+		select * from users where e_diff=#{e_diff} and e_type=#{e_type} and e_point=#{e_point}
+	</select>
+	
+	<select id="selectByPage" resultType="tiku.domain.Exercises">
+		select * from exercises where statement="active"
+		<if test="e_diff != null and e_diff != ''">
+		and e_diff=#{e_diff}
+		</if>
+		<if test="e_type != null and e_type != ''">
+		and e_type=#{e_type}
+		</if>
+		<if test="e_point != null and e_point != ''">
+		and e_point=#{e_point}
+		</if>
+		limit #{index}, 10
+	</select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0"
+	xmlns="http://java.sun.com/xmlns/javaee"
+	xmlns:xsi="http:www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<!-- 设置根上下文配置文件路径 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/classes/tiku//config/appContext-*.xml
+		</param-value>
+	</context-param>
+	<!-- 注册DispatcherServlet -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/config/springmvc-config.xml
+			</param-value>
+		</init-param>
+		<!-- load-on-startup设为1 ，启动时装载 Servlet ，并调用 init方法 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- 将所有请求交由DispatcherServlet处理 -->
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<!-- 注册ContextLoaderListener -->
+	<listener>
+		<listener-class>
+		org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	
+</web-app>
+	
